@@ -36,14 +36,64 @@ print("Hitting Statistics Correlation Matrix:")
 print(correlation_matrix)
 print()
 
-selected_pitching_columns =  ['RelSpeed', 'SpinRate', 'ExitSpeed', 'Angle', 'Distance']
+fastballs = data[data['TaggedPitchType'] == 'Fastball']
+
+# Group by play result and calculate the average spin rate
+average_spin_rate_by_result2 = fastballs.groupby('PlayResult')['RelSpeed'].mean()
+
+# Display the results
+print("Average Speed of Fastballs for Each Play Result:")
+print(average_spin_rate_by_result2)
+print()
+
+data = data.dropna(subset=['TaggedPitchType', 'VertRelAngle', 'HorzRelAngle'])
+
+# Group by pitch type
+grouped_data = data.groupby(['TaggedPitchType'])
+
+# Calculate average release angle for each pitch type
+avg_release_angles = grouped_data[['VertRelAngle', 'HorzRelAngle']].mean()
+
+print(avg_release_angles)
+print()
+
+selected_spinRate_columns =  ['SpinRate', 'VertRelAngle', 'HorzRelAngle', 'RelHeight', 'RelSide', 'Extension']
 # Corrected variable name from 'elected_data' to 'selected_data'
-selected_pitching_data = data[selected_pitching_columns]
+selected_spinRate_data = data[selected_spinRate_columns]
 
 # Calculating the correlation matrix
-correlation_matrix = selected_pitching_data.corr()
+correlation_matrix1 = selected_spinRate_data.corr()
 
 # Displaying the correlation matrix
-print("Pitching StatisticsCorrelation Matrix:")
-print(correlation_matrix)
+print("Hitting Statistics Correlation Matrix:")
+print(correlation_matrix1)
 print()
+
+
+# Step 1: Filter data for Pitcher Hagen Smith
+hagen_smith_data = data[data['Pitcher'] == 'Smith, Hagen']
+
+# Step 2: Group data by inning
+grouped_data = hagen_smith_data.groupby('Inning')
+
+# Step 3: Calculate average speed for each inning
+average_speed_per_inning = grouped_data['RelSpeed'].mean()
+
+# Display the result
+print(average_speed_per_inning)
+print()
+
+# Filter data for RunsScore equals zero and remove missing values in ExitSpeed
+exit_speed_zero_runs = data[data['RunsScored'] == 0]['ExitSpeed'].dropna()
+
+# Filter data for RunsScore more than zero and remove missing values in ExitSpeed
+exit_speed_more_than_zero_runs = data[data['RunsScored'] > 0]['ExitSpeed'].dropna()
+
+# Calculate mean exit speed for each case
+mean_exit_speed_zero_runs = exit_speed_zero_runs.mean()
+mean_exit_speed_more_than_zero_runs = exit_speed_more_than_zero_runs.mean()
+
+print(f"Mean Exit Speed when RunsScore is zero: {mean_exit_speed_zero_runs}")
+print(f"Mean Exit Speed when RunsScore is more than zero: {mean_exit_speed_more_than_zero_runs}")
+print()
+
