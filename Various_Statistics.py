@@ -24,14 +24,26 @@ print("Average Spin Rate of Sliders and Curveballs for Each Play Result:")
 print(average_spin_rate_by_result)
 print()
 
-selected_columns =  ['Direction', 'HitSpinRate', 'ExitSpeed', 'Angle', 'Distance']
+selected_hitting_columns =  ['HangTime', 'HitSpinRate', 'ExitSpeed', 'Angle', 'Distance']
 # Corrected variable name from 'elected_data' to 'selected_data'
-selected_data = data[selected_columns]
+selected_hitting_data = data[selected_hitting_columns]
 
 # Calculating the correlation matrix
-correlation_matrix = selected_data.corr()
+correlation_matrix = selected_hitting_data.corr()
 
 # Displaying the correlation matrix
-print("Correlation Matrix:")
+print("Hitting Statistics Correlation Matrix:")
+print(correlation_matrix)
+print()
+
+selected_pitching_columns =  ['RelSpeed', 'SpinRate', 'ExitSpeed', 'Angle', 'Distance']
+# Corrected variable name from 'elected_data' to 'selected_data'
+selected_pitching_data = data[selected_pitching_columns]
+
+# Calculating the correlation matrix
+correlation_matrix = selected_pitching_data.corr()
+
+# Displaying the correlation matrix
+print("Pitching StatisticsCorrelation Matrix:")
 print(correlation_matrix)
 print()
