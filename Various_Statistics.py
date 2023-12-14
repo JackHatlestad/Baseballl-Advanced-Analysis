@@ -112,3 +112,29 @@ averages_by_player = ark_raz_data.groupby(player_column).agg({
 # Display the results
 print(averages_by_player)
 
+print()
+
+# Filter rows where PitchCall is 'StrikeSwinging' and calculate average spin rate
+swinging_avg_spin_rate = data[data['PitchCall'] == 'StrikeSwinging']['SpinRate'].mean()
+
+# Filter rows where PitchCall is not 'StrikeSwinging' and calculate average spin rate
+non_swinging_avg_spin_rate = data[data['PitchCall'] != 'StrikeSwinging']['SpinRate'].mean()
+
+print(f'Average Spin Rate for StrikeSwinging: {swinging_avg_spin_rate}')
+print(f'Average Spin Rate for Non-StrikeSwinging: {non_swinging_avg_spin_rate}')
+
+print()
+
+# Filter rows where PitchCall is 'Strikeout' and count occurrences of each TaggedPitchType
+strikeout_counts = data[data['KorBB'] == 'Strikeout']['TaggedPitchType'].value_counts()
+
+print('\nTaggedPitchType Counts for Strikeouts:')
+print(strikeout_counts)
+print()
+
+swinging_strikeouts = data[data['KorBB'] == 'Strikeout']['PitchCall'].value_counts()
+
+print(swinging_strikeouts)
+print()
+
+
