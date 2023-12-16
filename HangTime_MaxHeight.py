@@ -8,12 +8,12 @@ data = pd.read_csv('20220423-Olsen-1.csv')
 # Filter 
 balls_in_play = data[data['PlayResult'] != 'Undefined']
 
-x = balls_in_play['ExitSpeed']
-y = balls_in_play['RelSpeed']
+x = balls_in_play['HangTime']
+y = balls_in_play['MaxHeight']
 
 # Scatterplot
 sns.scatterplot(x=x, y=y, hue=balls_in_play['PlayResult'])
-plt.xlabel('ExitSpeed (MPH)')
-plt.ylabel('RelSpeed (MPH)')
-plt.title('RelSpeed vs. ExitSpeed')
+plt.xlabel('HangTime (Seconds)')
+plt.ylabel('MaxHeight (Feet')
+plt.title('MaxHeight vs. Hangtime')
 plt.show()

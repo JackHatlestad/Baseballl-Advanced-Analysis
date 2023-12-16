@@ -2,23 +2,21 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Load CSV file into a DataFrame
+# Load CSV file
 data = pd.read_csv('20220423-Olsen-1.csv')
 
-
-
-# Filter data for PitchCall == 'BallCalled'
-ball_calls = data[data['PitchCall'] == 'BallCalled']
+# Filter data
+balls = data[data['PitchCall'] == 'BallCalled']
 
 # Group by Batter and count the occurrences of BallCalled
-ball_calls_count = ball_calls.groupby(['Batter', 'BatterTeam']).size().reset_index(name='BallCalledCount')
+balls_against = balls.groupby(['Batter', 'BatterTeam']).size().reset_index(name='BallCalledCount')
 
-# Plotting the bar graph
+# Bar Graph 
 plt.figure(figsize=(10, 6))
-plt.bar(ball_calls_count['Batter'], ball_calls_count['BallCalledCount'])
+plt.bar(balls_against['Batter'], balls_against['BallCalledCount'])
 plt.xlabel('Batter')
-plt.ylabel('Number of BallCalled')
-plt.title('Number of BallCalled for Each Batter on BatterTeam TEX_AGG')
+plt.ylabel('Number of balls called against')
+plt.title('Number of Balls called against for each batter on Texas A&M')
 plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
 plt.show()

@@ -1,23 +1,21 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 
-# Load CSV file into a DataFrame
+# Load CSV file 
 data = pd.read_csv('20220423-Olsen-1.csv')
 
-hagen_smith_data = data[data['Pitcher'] == 'Smith, Hagen']
+#Filter Data
+Hagen_Smith = data[data['Pitcher'] == 'Smith, Hagen']
+Hagen_Smith_Inning = Hagen_Smith.groupby('Inning')
 
-grouped_data = hagen_smith_data.groupby('Inning')
-average_speed_per_inning = grouped_data['RelSpeed'].mean()
+average_speed = Hagen_Smith_Inning['RelSpeed'].mean()
 
 # Create a DataFrame from the Series
-average_speed_df = pd.DataFrame({'Inning': average_speed_per_inning.index, 'AverageSpeed': average_speed_per_inning.values})
+Data_Frame = pd.DataFrame({'Inning': average_speed.index, 'AverageSpeed': average_speed.values})
 
-# Assuming 'spin_rates' is another column in the original DataFrame
-spin_rates = hagen_smith_data['Inning']
-
-# Plot the data
-plt.plot(average_speed_df['Inning'], average_speed_df['AverageSpeed'])
+#Line Graph 
+plt.plot(Data_Frame['Inning'], Data_Frame['AverageSpeed'])
 plt.xlabel('Inning')
-plt.ylabel('Average Speed')
+plt.ylabel('RelSpeed (MPH)')
+plt.title('Hagen Smith Average RelSpeed of each inning pitched')
 plt.show()

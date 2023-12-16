@@ -2,14 +2,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Load CSV file into a DataFrame
+# Load CSV file
 data = pd.read_csv('20220423-Olsen-1.csv')
 
 
-pitch_counts = data.groupby(['Pitcher', 'TaggedPitchType']).size().unstack(fill_value=0)
+pitch_types_counts = data.groupby(['Pitcher', 'TaggedPitchType']).size().unstack(fill_value=0)
 
-# Plotting
-pitch_counts.plot(kind='bar', stacked=True, colormap='viridis', figsize=(12, 6))
+#Bar Graph
+pitch_types_counts.plot(kind='bar', stacked=True, colormap='viridis', figsize=(12, 6))
 plt.title('Pitch Types Thrown by Pitcher')
 plt.xlabel('Pitcher')
 plt.ylabel('Number of Occurrences')
