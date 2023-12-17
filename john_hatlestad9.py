@@ -18,5 +18,5 @@ y = Hagen_Smith_filtered['VertRelAngle']
 sns.scatterplot(x=x, y=y, hue=Hagen_Smith_filtered['PitchCall'])
 plt.xlabel('Horizontal Release Angle (Degrees)')
 plt.ylabel('Vertical Release Angle (Degrees)')
-plt.title('Hagen Smith Release Angle for Each Pitch Type (BallCalled, StrikeCalled, StrikeSwinging)')
+plt.title('Hagen Smith Release Angle for balls & strikes')
 plt.show()

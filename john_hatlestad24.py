@@ -25,46 +25,37 @@ for index, row in pitcher_stats.iterrows():
     print()
     
 breaking_balls = data[(data['TaggedPitchType'] == 'Slider') | (data['TaggedPitchType'] == 'Curveball')]
-breaking_balls_results_spinrate = breaking_balls.groupby('PlayResult')['SpinRate'].mean()
-print("Average Spin Rate of Breaking Balls for Play Result:")
-print(breaking_balls_results_spinrate)
+results_spinrate = breaking_balls.groupby('PlayResult')['SpinRate'].mean()
+print("Average Spin Rate of Breaking Balls by Play Result:")
+print(results_spinrate)
 print()
 
 fastballs = data[data['TaggedPitchType'] == 'Fastball']
-fastballs_results_speed = fastballs.groupby('PlayResult')['RelSpeed'].mean()
-print("Average RelSpeed of Fastballs for Each Play Result:")
-print(fastballs_results_speed)
+results_speed = fastballs.groupby('PlayResult')['RelSpeed'].mean()
+print("Average RelSpeed of Fastballs by Play Result:")
+print(results_speed)
 print()
 
 matrix_columns =  ['SpinRate', 'VertRelAngle', 'HorzRelAngle', 'RelHeight', 'RelSide', 'Extension']
-data = data[matrix_columns]
-correlation_matrix = data.corr()
-print("SpinRate correlation matrix:")
+data1 = data[matrix_columns]
+correlation_matrix = data1.corr()
+print("What pitching metrics correspond to having high spin rates?")
 print(correlation_matrix)
 print()
-
-catcher_stats = data.groupby('Catcher').agg({
-    'ThrowSpeed': 'mean',
-    'PopTime': 'mean',
-    'ExchangeTime': 'mean',
-    'TimeToBase': 'mean'
-}).reset_index()
-print(catcher_stats)
-print()
-
 
 tagged_pitch_type_column = 'TaggedPitchType'
 speed_drop_column = 'SpeedDrop'
 average_speed_drop_by_type = data.groupby(tagged_pitch_type_column)[speed_drop_column].mean()
+print("Average speed drop by pitch type")
 print(average_speed_drop_by_type)
 print()
 
 BatterTeam = 'BatterTeam'
 ExitSpeed = 'ExitSpeed'
-average_speed_drop_by_type1 = data.groupby(BatterTeam)[ExitSpeed].mean()
-print(average_speed_drop_by_type1)
+exit_speed = data.groupby(BatterTeam)[ExitSpeed].mean()
+print("Average Exit Speed for each team")
+print(exit_speed)
 print()
-
 
 batter_team_column = 'BatterTeam'
 player_column = 'Batter'
@@ -77,13 +68,14 @@ averages_by_player = ark_raz_data.groupby(player_column).agg({
     exit_speed_column: 'mean',
     distance_column: 'mean'
 }).reset_index()
+print("Average Exit Speed, Angle, and Distance for Arkansas Batters")
 print(averages_by_player)
 print()
 
-swinging_avg_spin_rate = data[data['PitchCall'] == 'StrikeSwinging']['SpinRate'].mean()
-non_swinging_avg_spin_rate = data[data['PitchCall'] == 'InPlay']['SpinRate'].mean()
-print(f'Average Spin Rate for StrikeSwinging: {swinging_avg_spin_rate}')
-print(f'Average Spin Rate for Non-StrikeSwinging: {non_swinging_avg_spin_rate}')
+strike_spinrate = data[data['PitchCall'] == 'StrikeSwinging']['SpinRate'].mean()
+hit_spinrate = data[data['PitchCall'] == 'InPlay']['SpinRate'].mean()
+print(f'Average Spin Rate for Strikes by swinging: {strike_spinrate}')
+print(f'Average Spin Rate for balls in play: {hit_spinrate}')
 print()
 
 
